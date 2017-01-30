@@ -1,21 +1,44 @@
 header {
-  background-color: teal;
+  background-color: #3b5998;
   color: white;
+}
+.container {
+  margin: 0 auto;
 }
 
 header .container h1 {
+  display: inline-block;
+
+  line-height: 50px;
   font-size: 36px;
+  color: white;
+  background-color: #3b5998;
+}
+
+
+img {
+  float: left;
+  margin-top: 20px;
 }
 
 main{
-  flex: 1 0 auto;
+  margin: 0 auto;
+  background-color: #e9ebee;
 }
 
 footer {
-  background-color: teal;
+  position: fixed;
+  bottom: 0;
+  margin: 0 auto;
+  width: 100%;
+  background-color: #3b5998;
   color: white;
 }
 
 a {
   color: #00B7FF;
+}
+
+.heart {
+  color: red;
 }

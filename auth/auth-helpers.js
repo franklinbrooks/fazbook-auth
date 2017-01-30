@@ -1,23 +1,22 @@
 const bcrypt = require('bcryptjs');
-
 const models = require('../db/models/index');
 
-function comparePass(userPassword, databasePassword) {
+function comparePass(userPassword, databasePassword) { // use bcrypt to compare user & db passwords
   return bcrypt.compareSync(userPassword, databasePassword);
 }
 
-function loginRedirect(req, res, next) {
+function loginRedirect(req, res, next) { // if a user is already logged in return status msg
   if (req.user) return res.status(401).json(
     { status: 'You are already logged in' }
   );
   return next();
 }
 
-function createUser(req, res) {
-  const salt = bcrypt.genSaltSync();
-  const hash = bcrypt.hashSync(req.body.password, salt);
+function createUser(req, res) { //
+  const salt = bcrypt.genSaltSync(); // salts pswd with extra data
+  const hash = bcrypt.hashSync(req.body.password, salt); // hashes pswd to obscure data
 
-  return models.User.create({
+  return models.User.create({ // serialize user info for POST to db
     username: req.body.username,
     password: hash,
     firstName: req.body.firstName,
@@ -25,11 +24,11 @@ function createUser(req, res) {
     email: req.body.email,
     dob: req.body.dob
   }).then(() => {
-    res.redirect('/');
+    res.redirect('/'); // then back to homepage
   });
 }
 
-function loginRequired(req, res, next) {
+function loginRequired(req, res, next) { // if no user already logged in, require login
   if (!req.user) return res.status(401).json({ status: 'Please log in' });
 
   return next();
